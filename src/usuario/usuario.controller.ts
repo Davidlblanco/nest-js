@@ -1,4 +1,6 @@
-import { Controller, Body, Post, Get, Param } from "@nestjs/common"
+import { Controller, Body, Post, Get, Param, HttpStatus } from "@nestjs/common"
+import { NestResponse } from "../core/http/nest-response"
+import { NestResponseBuilder } from "../core/http/nest-response-bulder"
 import { Usuario } from "./usuario.entity"
 import { UsuarioService } from "./usuario.service"
 
@@ -17,8 +19,13 @@ export class UsuarioController {
     }
 
     @Post()
-    public cria(@Body() usuario: Usuario): Usuario {
+    public cria(@Body() usuario: Usuario): NestResponse {
         const usuarioCriado = this.usuarioService.cria(usuario)
-        return usuarioCriado
+
+        return new NestResponseBuilder()
+            .comStatus(HttpStatus.CREATED)
+            .comHeaders({ 'location': `/users/${usuarioCriado.nomeDeUsuario}` })
+            .comBody(usuarioCriado)
+            .build()
     }
 }
