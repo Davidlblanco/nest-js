@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Get, Param, HttpStatus } from "@nestjs/common"
+import { Controller, Body, Post, Get, Param, HttpStatus, NotFoundException } from "@nestjs/common"
 import { NestResponse } from "../core/http/nest-response"
 import { NestResponseBuilder } from "../core/http/nest-response-bulder"
 import { Usuario } from "./usuario.entity"
@@ -14,6 +14,12 @@ export class UsuarioController {
     @Get(':nomeDeUsuario')
     public buscaPorNomeDeUsuario(@Param('nomeDeUsuario') nomeDeUsuario: string) {
         const usuarioEncontrado = this.usuarioService.buscaPorNomeDeUsuario(nomeDeUsuario)
+        if (!usuarioEncontrado) {
+            throw new NotFoundException({
+                statusCode: HttpStatus.NOT_FOUND,
+                message: 'Usuário não encontrado'
+            })
+        }
         return usuarioEncontrado
 
     }

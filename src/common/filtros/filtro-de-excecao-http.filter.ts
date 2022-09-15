@@ -9,7 +9,6 @@ export class FitroDeExcecaoHttp implements ExceptionFilter {
         this.httpAdapter = adapterHost.httpAdapter;
     }
     catch(exception: Error, host: ArgumentsHost) {
-        console.log('teste')
         const contexto = host.switchToHttp()
         const requisicao = contexto.getRequest()
         const resposta = contexto.getResponse()

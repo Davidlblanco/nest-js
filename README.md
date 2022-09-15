@@ -71,3 +71,9 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+## PARA MAEZTRA ####################################
+ - npm i
+ - npm run start:dev
+ - endpoints disponiveis na collection "enpspointsCollecton.json" disponível neste repo
